@@ -1,4 +1,4 @@
 #!/bin/bash
 truffle compile
-truffle migrate --reset
+truffle migrate
 yarn start

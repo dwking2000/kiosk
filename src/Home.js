@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { getDINRegistry } from "./utils/contracts";
 import { getAllDINs, infoFromDIN } from "./utils/getProducts";
-import BuyModal from "./Components/BuyModal";
 import SideMenu from "./Components/SideMenu";
+import BuyModal from "./Components/BuyModal";
 import HeaderToolbar from "./Components/HeaderToolbar";
 import MarketplaceTable from "./Tables/MarketplaceTable";
 
@@ -41,6 +41,7 @@ class Home extends Component {
   }
 
   handleSelectProduct(product) {
+    console.log("pressed buy")
     this.setState({
       showBuyModal: true,
       selectedProduct: product
@@ -53,7 +54,7 @@ class Home extends Component {
 
   render() {
     let hideBuyModal = () => this.setState({ showBuyModal: false });
-
+    console.log("should show buy modal: ", this.state.showBuyModal)
     return (
       <div className="home-container">
         <SideMenu className="side-menu" handleSelectListItem={this.handleSelectListItem} />
@@ -67,7 +68,7 @@ class Home extends Component {
           />
         </div>
         <BuyModal
-          show={this.state.showBuyModal}
+          showModal={this.state.showBuyModal}
           onHide={hideBuyModal}
           product={this.state.selectedProduct}
           web3={this.props.web3}

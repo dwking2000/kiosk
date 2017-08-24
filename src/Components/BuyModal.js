@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
+
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import QuantityPicker from "./QuantityPicker";
 import MarketJSON from "../../build/contracts/StandardMarket.json";
 import { buyProduct } from "../utils/buy";
@@ -39,22 +43,31 @@ class BuyModal extends Component {
 	}
 
 	render() {
-		const hidden = { display: "none" };
-		const visible = { display: "block" };
+		const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Buy"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleClose}
+      />,
+    ];
+
 
 		return (
-			<Modal
-				{...this.props}
-				animation={false}
-				bsSize="small"
-				aria-labelledby="contained-modal-title-sm"
-				className="buy-modal"
-			>
-				<Modal.Header closeButton />
-				<Modal.Body>
-					<h1 className="buy-modal-name">
-						{this.props.product.name}
-					</h1>
+			<div>
+				<Dialog
+					title={this.props.product.name}
+					actions={actions}
+					modal={false}
+					open={this.props.showModal}
+					onRequestClose={this.handleClose}
+					autoScrollBodyContent={true}
+				>
 					<p className="buy-modal-din">
 						{this.props.product.DIN}
 					</p>
@@ -72,27 +85,28 @@ class BuyModal extends Component {
 							{this.props.product.price + " ETH"}
 						</h4>
 					</div>
-				</Modal.Body>
-				<Button
-					style={
-						this.props.product.available === true ? visible : hidden
-					}
-					className="buy-now"
-					onClick={() => this.handleBuy(this.state.quantity)}
-				>
-					Buy Now
-				</Button>
-				<Button
-					style={
-						this.props.product.available === false
-							? visible
-							: hidden
-					}
-					className="not-available"
-				>
-					Not Available
-				</Button>
-			</Modal>
+				</Dialog>
+			</div>
+
+			// <Button
+			// 	style={
+			// 		this.props.product.available === true ? visible : hidden
+			// 	}
+			// 	className="buy-now"
+			// 	onClick={() => this.handleBuy(this.state.quantity)}
+			// >
+			// 	Buy Now
+			// </Button>
+			// <Button
+			// 	style={
+			// 		this.props.product.available === false
+			// 			? visible
+			// 			: hidden
+			// 	}
+			// 	className="not-available"
+			// >
+			// 	Not Available
+			// </Button>
 		);
 	}
 }
