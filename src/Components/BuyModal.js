@@ -47,13 +47,13 @@ class BuyModal extends Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={this.handleClose}
+        onClick={this.props.onHide}
       />,
       <FlatButton
         label="Buy"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleClose}
+        onClick={this.handleBuy}
       />,
     ];
 
